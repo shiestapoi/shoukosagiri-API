@@ -114,6 +114,34 @@ router.get("/pricing", checkAuth, async (req, res) => {
   });
 });
 
+router.get("/settings", checkAuth, async (req, res) => {
+  const totalUsers = await getTotalUsersCount();
+  let getinfo = await getApikey(req.user.id);
+  let {
+    apikey,
+    username,
+    email,
+    tier,
+    expiredtier,
+    checklimit,
+    isVerified,
+    RequestToday,
+    RequestTotal,
+  } = getinfo;
+  res.render("settings", {
+    username: username,
+    verified: isVerified,
+    email: email,
+    tier: tier,
+    expiredtier: expiredtier,
+    apikey: apikey,
+    limit: checklimit,
+    RequestToday: RequestToday,
+    RequestTotal: RequestTotal,
+    totalUsers: totalUsers,
+  });
+});
+
 router.get("/success-payment", checkAuth, async (req, res) => {
   try {
     const { order_id, transaction_status } = req.query;

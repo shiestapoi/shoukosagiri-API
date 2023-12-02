@@ -75,7 +75,7 @@ function captchaLogin(req, res, next) {
 router.get("/login", recaptcha.middleware.render, (req, res) => {
   if (req.isAuthenticated()) {
     // Jika pengguna sudah terotentikasi, arahkan ke halaman sebelumnya atau ke halaman docs
-    const returnTo = req.query.url;
+    const returnTo = req.query.url || "/docs";
     res.redirect(returnTo);
   } else {
     // Jika belum terotentikasi, arahkan ke halaman login
@@ -84,6 +84,7 @@ router.get("/login", recaptcha.middleware.render, (req, res) => {
       csrfToken: req.csrfToken(),
       recaptcha: res.recaptcha,
       returnurl: returnurl,
+      fromurl: req.query.fromUrl || "Login",
     });
   }
 });
@@ -101,14 +102,18 @@ router.post(
   }
 );
 
-router.get("/signup", recaptcha.middleware.render, (req, res) => {
+router.get("/signup", (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/docs");
   } else {
-    res.render("signup", {
-      csrfToken: req.csrfToken(),
-      recaptcha: res.recaptcha,
-    });
+    res.redirect("/login?fromUrl=register");
+  }
+});
+router.get("/register", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/docs");
+  } else {
+    res.redirect("/login?fromUrl=register");
   }
 });
 
@@ -287,16 +292,13 @@ router.get("/verifyemail", async (req, res) => {
   }
 });
 
-router.get(
-  "/forgot-password",
-  recaptcha.middleware.render,
-  async (req, res) => {
-    res.render("forgot-password.ejs", {
-      csrfToken: req.csrfToken(),
-      recaptcha: res.recaptcha,
-    });
+router.get("/forgot-password", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/docs");
+  } else {
+    res.redirect("/login?fromUrl=forgot-password");
   }
-);
+});
 
 router.post(
   "/forgot-password",

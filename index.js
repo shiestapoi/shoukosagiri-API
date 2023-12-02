@@ -325,11 +325,11 @@ app.use(express.static("public"));
 app.use("/", main);
 app.use("/", api);
 
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-app.use(function (err, req, res, next) {
-  res.render("404");
-});
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
+// app.use(function (err, req, res, next) {
+//   res.render("404");
+// });
 
 module.exports = app;
