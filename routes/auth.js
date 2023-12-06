@@ -17,6 +17,21 @@ const generateApiKey = require("generate-api-key").default;
 const containsEmoji = require("contains-emoji");
 const Recaptcha = require("express-recaptcha").RecaptchaV2;
 const recaptcha = new Recaptcha(recaptcha_key_1, recaptcha_key_2);
+const fs = require("fs");
+const path = require("path");
+const multer = require("multer");
+
+// Konfigurasi multer untuk menangani upload file
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const imagePath = path.join(
+  __dirname,
+  "..",
+  "public",
+  "images",
+  "user",
+  "terakomari.png"
+);
 
 //_______________________ ┏ Function ┓ _______________________\\
 
@@ -121,6 +136,7 @@ router.post(
   "/signup",
   recaptcha.middleware.verify,
   captchaRegister,
+  upload.single("profileImage"),
   async (req, res) => {
     const { email, username, password, confirmpassword } = req.body;
     var createpw = new passwordValidator();
@@ -205,20 +221,30 @@ router.post(
               if (err) throw err;
               bcryptjs.hash(password, salt, (err, hash) => {
                 if (err) throw err;
-                user({
-                  username: username,
-                  email: email,
-                  password: hash,
-                  tier: "Free",
-                  apikey: generateApiKey({ method: "bytes", length: 8 }),
-                  limitApikey: LimitApikey,
-                }).save((err, data) => {
-                  if (err) throw err;
-                  req.flash(
-                    "success_messages",
-                    "Success create account, please login"
-                  );
-                  console.log(`======Pendaftaran Account======
+                fs.readFile(imagePath, (err, data) => {
+                  if (err) {
+                    // Handle kesalahan jika file tidak dapat dibaca
+                    console.error(err);
+                  } else {
+                    // Lakukan penyimpanan gambar ke basis data
+                    user({
+                      username: username,
+                      email: email,
+                      password: hash,
+                      tier: "Free",
+                      apikey: generateApiKey({ method: "bytes", length: 8 }),
+                      limitApikey: LimitApikey,
+                      profileImage: {
+                        data: data,
+                        contentType: "image/png", // Tentukan tipe konten gambar
+                      },
+                    }).save((err, data) => {
+                      if (err) throw err;
+                      req.flash(
+                        "success_messages",
+                        "Success create account, please login"
+                      );
+                      console.log(`======Pendaftaran Account======
 Username : ${username}
 Email : ${email}
 Tier : Free
@@ -227,7 +253,9 @@ Date : ${new Date()}
 Status : Success
 ===============================
 `);
-                  res.redirect("/login");
+                      res.redirect("/login");
+                    });
+                  }
                 });
               });
             });

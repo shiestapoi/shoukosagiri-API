@@ -15,6 +15,65 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/default.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <!-- <style>
+        /* Tambahan CSS khusus untuk halaman settings */
+        .profile-box {
+          width: 200px;
+          height: 200px;
+          border: 2px solid #ccc;
+          border-radius: 50%;
+          overflow: hidden;
+          position: relative;
+          margin: 0 auto;
+          cursor: pointer;
+        }
+    
+        .profile-box img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+    
+        .profile-box:hover {
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+    
+        .edit-icon {
+          display: none;
+          position: absolute;
+          bottom: 5px;
+          right: 5px;
+          background-color: #fff;
+          padding: 5px;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        .profile-photo label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the label */
+            background-color: rgba(0, 0, 0, 0.2); /* Make the label slightly dark */
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0; /* Hide the label by default */
+            transition: opacity 0.5s; /* Add a smooth transition effect */
+            }
+
+        .profile-box:hover .edit-icon {
+          display: block;
+        }
+    
+        /* Media query untuk responsif */
+        @media (max-width: 768px) {
+          .profile-box {
+            width: 150px;
+            height: 150px;
+          }
+        }
+      </style> -->
 </head>
 
 <body id="page-top" class="dark-mode">
@@ -349,7 +408,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-3 d-none d-lg-inline text-gray-600 fw-bolder fs-2"><%= username %></span>
                                 <img class="img-profile rounded-circle"
-                                    src="images/icon.png">
+                                    src="/profile/images/<%= userid %>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -373,17 +432,6 @@
                     </ul>
 
                 </nav>
-                <!-- <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="/logout">
-                                <i class="fa-solid fa-right-from-bracket" > </i> 
-                                <span class="text-sm-left mb-0 font-weight-bold">&nbsp;Log Out</span>
-                                
-                            </a>
-                        </li>
-                    </ul>
-                </nav> -->
 
                 <% if(!verified){ %>
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
@@ -406,223 +454,56 @@
                           </div>
                           <% } %>
 
-                    <div class="container-fluid" id="container-wrapper">
-                        <div class="card h-50 mb-4">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-md-left font-weight-bold mb-2 text-primary">Shoukosagiri Restfull API </div>
-                                        <div class="text-sm-left mb-0 font-weight-bold">Hallo <%= username %> Selamat Datang di Shoukosagiri API</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-quote-right fa-2x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    <div class="row mb-3"> 
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">User Registered</div>
-                                        <div class="h5 mb-0 font-weight-bold"><%= totalUsers %></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-user fa-2xl"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Request Today</div>
-                                        <div class="h5 mb-0 font-weight-bold" ><%= RequestToday %></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-chart-line fa-2xl" ></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Request Total</div>
-                                        <div class="h5 mb-0 font-weight-bold" ><%= RequestTotal %></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-chart-line fa-2xl" ></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Limit Apikey</div>
-                                        <div class="h5 mb-0 font-weight-bold" ><%= limit %></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-ticket fa-2xl" ></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Your Apikey</div>
-                                        <div class="h5 mb-0 font-weight-bold" ><%= apikey %></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa fa-key fa-2xl" ></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Tier</div>
-                                        <span id="battery_level" class="h5 mb-0 font-weight-bold"><%= tier %> </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <% if(tier === 'Free'){ %>
-                                            <i class="fa fa-user fa-2xl" ></i>
-                                            <% }else if(tier === 'Standard'){ %>
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="32" width="36" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#ffd700" d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"/></svg>
-                                            <% }else if(tier === 'Premium'){ %>
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="32" width="36" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.5.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path fill="#ffd700" d="M325.8 152.3c1.3 4.6 5.5 7.7 10.2 7.7s8.9-3.1 10.2-7.7L360 104l48.3-13.8c4.6-1.3 7.7-5.5 7.7-10.2s-3.1-8.9-7.7-10.2L360 56 346.2 7.7C344.9 3.1 340.7 0 336 0s-8.9 3.1-10.2 7.7L312 56 263.7 69.8c-4.6 1.3-7.7 5.5-7.7 10.2s3.1 8.9 7.7 10.2L312 104l13.8 48.3zm-112.4 5.1c-8.8-17.9-34.3-17.9-43.1 0l-46.3 94L20.5 266.5C.9 269.3-7 293.5 7.2 307.4l74.9 73.2L64.5 483.9c-3.4 19.6 17.2 34.6 34.8 25.3l92.6-48.8 92.6 48.8c17.6 9.3 38.2-5.7 34.8-25.3L301.6 380.6l74.9-73.2c14.2-13.9 6.4-38.1-13.3-40.9L259.7 251.4l-46.3-94zm215.4 85.8l11 38.6c1 3.6 4.4 6.2 8.2 6.2s7.1-2.5 8.2-6.2l11-38.6 38.6-11c3.6-1 6.2-4.4 6.2-8.2s-2.5-7.1-6.2-8.2l-38.6-11-11-38.6c-1-3.6-4.4-6.2-8.2-6.2s-7.1 2.5-8.2 6.2l-11 38.6-38.6 11c-3.6 1-6.2 4.4-6.2 8.2s2.5 7.1 6.2 8.2l38.6 11z"/></svg>
-                                            <% }else{ %>
-                                            <i class="fa fa-circle-exclamation fa-2xl" ></i>
-                                            <% } %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Jam</div>
-                                        <div class="h5 mb-0 font-weight-bold" id="jam">00:00:00</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa fa-clock-o fa-2xl"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card h-50">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Expired Tier</div>
-                                        <% if(expiredtier < 90) { %>
-                                            <div class="h5 mb-0 font-weight-bold" ><%= expiredtier %> Days</div>
-                                            <% }else{ %>
-                                                <div class="h5 mb-0 font-weight-bold" >Unlimited</div>
-                                                <% } %>
-                                            </div>
-                                            <div class="col-auto">
-                                        <% if(expiredtier < 90) { %>
-                                            <i class="fa-regular fa-calendar-days fa-2xl"></i>
-                                            <% }else{ %>
-                                                <i class="fa-solid fa-calendar fa-2xl"></i>
-                                                <% } %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="findipurl"> <a href="find-ip.net" ></a></div>
-
-            <script defer src="https://api.find-ip.net/widget.js?width=220&bg=%23181818&border=%23181818&textcol=%23d3d5f3&paid=1"></script>
-            
-            <br>
-            <div class="row g-4">
-            <div class="col-sm-12 col-xl-6">
-                <div class="card-body">
-                    <h6 class="mb-4"><i class="bx bx-news text-primary me-2"></i>Syarat dan ketentuan:</h6>
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <ul>
-                                <li>Jangan flooding requests, Admin web dapat langsung mengganti peraturan web jika terjadi error.</li>
-                                <li>Dilarang keras untuk menyebarkan apikey Anda, jika ketahuan. InsyaAllah akan di block :)</li>
-                                <li>Admin tidak bertanggung jawab atas apa yang Anda lakukan dalam penggunaan website ini.</li>
-                                <li>Membuat banyak akun pada IP yang sama maka IP otomatis akan di block.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </div>
-
-                <div class="Box mt-4">
-                    <div class="Box-body p-4">
-                      <div class="d-flex flex-justify-between">
-                        <div class="text-mono text-small mb-3">
-                        </div>
+        <div class="container-fluid" id="container-wrapper">
+          <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2>Settings</h2>
+        <div class="mb-3">
+            <form action="/updateprofile" method="POST" enctype="multipart/form-data">
+                <div class="profile-container py-lg-4">
+                    <div class="profile-picture" id="profilePic">
+                      <img src="/profile/images/<%= userid %>" alt="Photo Profile" id="currentProfilePic">
+                      <div class="overlay" id="overlay">
+                        <label for="fileInput" class="edit-icon">
+                          <i class="fa fa-pencil"></i>
+                        </label>
+                        <input type="file" id="fileInput" name="profileImage" accept="image/*" style="display: none;" onchange="validateFile(this)">
                       </div>
-
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            Contact Me
-                            <p>
-                                <a href="https://github.com/Shiestapoi" class="btn btn-primary btn-sm mr-2" target="_blank"><i class="fab fa-fw fa-github"></i>&nbsp;Github</a>
-                                <a href="https://www.instagram.com/shoukosagiri.poi" class="btn btn-primary btn-sm ml-2" target="_blank"><i class="fab fa-fw fa-instagram"></i>&nbsp;Instagram</a>
-                            </p>
-                        </div>
                     </div>
-                </div>
-                
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" name="userid" id="userid" style="display: none;" value="<%= userid %>">
+                <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="changeusername" id="changeusername" value="<%= username %>">
             </div>
-             
-            <footer class="sticky-footer">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        Made with <i class="fa fa-heart"></i> by
-                        <a href="https://github.com/Shiestapoi" target="_blank" style="color: rgb(255, 234, 0);">Shoukosagiri</a>
-                        </span>
-                    </div>
-                </div>
-            </footer>
-       
+            <div class="mb-3">
+                <% if(tier === "Premium" || tier === "Standard"){ %>
+            <label for="ApiKey" class="form-label">ApiKey</label>
+            <input type="text" class="form-control" name="changeapikey" id="changeapikey" placeholder="apikey" value="<%= apikey %>" >
+            <% } else { %>
+                <label for="ApiKey" class="form-label">ApiKey <span class="required-note">*for Premium and Standard tiers</span></label>
+                <input type="text" class="form-control" name="changeapikey" id="changeapikey" placeholder="apikey" value="<%= apikey %>" readonly >
+                <% } %>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+      </div>
+    </div>
+  </div>
+        
         </div>
     </div>
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                Made with <i class="fa fa-heart"></i> by
+                <a href="https://github.com/Shiestapoi" target="_blank" style="color: rgb(255, 234, 0);">Shoukosagiri</a>
+                </span>
+            </div>
+        </div>
+    </footer>
 
     
     <a class="scroll-to-top rounded" href="#page-top">
@@ -634,6 +515,7 @@
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/ruang-admin.min.js"></script>
+    <script src="js/settings.js"></script>
     <script src="js/menu.js"></script>
     <script>
         let jamElement = document.querySelector('#jam');

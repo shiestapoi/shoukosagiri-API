@@ -59,6 +59,36 @@ router.get("/", (req, res) => {
   res.render("home");
 });
 
+router.get("/getuserid", async (req, res) => {
+  res.json({ userid: req.user });
+});
+
+router.post("/testpost", async (req, res) => {
+  res.json({ status: "success" });
+});
+
+router.get("/profile/images/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+
+    if (!user || !user.profileImage) {
+      return res.status(404).json({
+        status: "error",
+        error: "Gambar profil tidak ditemukan.",
+      });
+    }
+
+    const contentType = user.profileImage.contentType;
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.set("Content-Type", contentType);
+    res.send(await user.profileImage.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", error: "Internal server error." });
+  }
+});
+
 router.get("/docs", checkAuth, async (req, res) => {
   const totalUsers = await getTotalUsersCount();
   let getinfo = await getApikey(req.user.id);
@@ -80,6 +110,7 @@ router.get("/docs", checkAuth, async (req, res) => {
     tier: tier,
     expiredtier: expiredtier,
     apikey: apikey,
+    userid: req.user.id,
     limit: checklimit,
     RequestToday: RequestToday,
     RequestTotal: RequestTotal,
@@ -106,6 +137,7 @@ router.get("/pricing", checkAuth, async (req, res) => {
     email: email,
     tier: tier,
     apikey: apikey,
+    userid: req.user.id,
     limit: checklimit,
     RequestToday: RequestToday,
     RequestTotal: RequestTotal,
@@ -132,6 +164,7 @@ router.get("/settings", checkAuth, async (req, res) => {
     username: username,
     verified: isVerified,
     email: email,
+    userid: req.user.id,
     tier: tier,
     expiredtier: expiredtier,
     apikey: apikey,

@@ -1,19 +1,94 @@
 body.dark-mode {
-    --bg-opacity: 1;
-    background-color: #1a202c;
-    background-color: rgba(26, 32, 44, var(--bg-opacity));
-    color: #ffffff;
+  --bg-opacity: 1;
+  background-color: #1a202c;
+  background-color: rgba(26, 32, 44, var(--bg-opacity));
+  color: #ffffff;
 }
 
 .card-body {
-    background-color: #181818;
+  background-color: #181818;
 }
 
 .sticky-footer {
-    background-color: #181818;
-    color: #fff
+  background-color: #181818;
+  color: #fff;
 }
 
 .sticky-footer a {
-    color: #fff
+  color: #fff;
+}
+
+.required-note {
+  color: red;
+  font-size: 0.9em; /* Sesuaikan ukuran huruf yang diinginkan */
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.profile-picture {
+  position: relative;
+  width: 200px; /* Ubah sesuai dengan ukuran yang diinginkan */
+  height: 200px; /* Ubah sesuai dengan ukuran yang diinginkan */
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 0 15px 5px #af4cf7; /* Warna neon purple: #af4cf7 */
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+.img-profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.edit-icon {
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.profile-picture:hover .overlay {
+  opacity: 1;
+}
+
+.profile-picture:hover img {
+  filter: brightness(0.7);
+}
+
+.profile-picture:hover .edit-icon {
+  display: block;
 }

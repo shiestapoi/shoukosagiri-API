@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 90,
   },
+  profileImage: {
+    data: Buffer, // Menyimpan data gambar dalam bentuk biner
+    contentType: String, // Menyimpan tipe konten gambar (misal: "image/jpeg", "image/png", dst.)
+  },
 });
 
 module.exports = mongoose.model("user", userSchema);

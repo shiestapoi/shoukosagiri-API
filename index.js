@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const expressSession = require("express-session");
 const MemoryStore = require("memorystore")(expressSession);
 const passport = require("passport");
+require("./controller/passportLocal")(passport);
 const flash = require("connect-flash");
 const csrf = require("csurf");
 const cron = require("node-cron");
@@ -17,6 +18,11 @@ const User = require("./model/user");
 const dataweb = require("./model/DataWeb");
 const payment = require("./model/midtrans");
 const Midtrans = require("midtrans-client");
+const multer = require("multer");
+
+// Konfigurasi multer untuk menangani upload file
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const snap = new Midtrans.Snap({
   clientKey: midtrans_client_key,
@@ -148,6 +154,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   tier();
 //   res.send("Tier adjustment complete");
 // });
+app.get("/test", async (req, res) => {
+  res.json({ userid: req.user });
+});
+
+app.post("/updateprofile", upload.single("profileImage"), async (req, res) => {
+  try {
+    const { userid, changeusername, changeapikey } = req.body;
+    const user = await User.findOne({ _id: userid });
+    // Pastikan bahwa file gambar diupload
+
+    if (!user) {
+      return res.status(404).send("User tidak ditemukan.");
+    }
+    if (req.file) {
+      user.profileImage.data = req.file.buffer;
+      user.profileImage.contentType = req.file.mimetype;
+    }
+    if (changeusername !== user.username) {
+      user.username = changeusername;
+    }
+    if (changeapikey !== user.apikey) {
+      user.apikey = changeapikey;
+    }
+    await user.save();
+
+    res.redirect("/settings");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 app.post("/notification/handling", async (req, res) => {
   try {
@@ -278,17 +315,17 @@ cron.schedule(
 
 //Reset All User Apikey Limit setiap sebulan
 /*
-cron.schedule(
-  "0 0 1 * *",
-  () => {
-    resetapi();
-  },
-  {
-    scheduled: true,
-    timezone: "Asia/Jakarta",
-  }
-);
-*/
+  cron.schedule(
+    "0 0 1 * *",
+    () => {
+      resetapi();
+    },
+    {
+      scheduled: true,
+      timezone: "Asia/Jakarta",
+    }
+    );
+    */
 
 //_______________________ ┏ Code ┓ _______________________\\
 
@@ -324,7 +361,6 @@ app.set("views", __dirname + "/view");
 app.use(express.static("public"));
 app.use("/", main);
 app.use("/", api);
-
 // app.use(function (req, res, next) {
 //   next(createError(404));
 // });
