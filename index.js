@@ -19,6 +19,7 @@ const dataweb = require("./model/DataWeb");
 const payment = require("./model/midtrans");
 const Midtrans = require("midtrans-client");
 const multer = require("multer");
+const generateApiKey = require("generate-api-key").default;
 
 // Konfigurasi multer untuk menangani upload file
 const storage = multer.memoryStorage();
@@ -27,7 +28,7 @@ const upload = multer({ storage: storage });
 const snap = new Midtrans.Snap({
   clientKey: midtrans_client_key,
   serverKey: midtrans_server_key,
-  isProduction: false, // Ganti menjadi true jika sudah di production
+  isProduction: true, // Ganti menjadi true jika sudah di production
 });
 //_______________________ ┏ Funtion ┓ _______________________\\
 
@@ -109,6 +110,7 @@ async function tier() {
         if (user.expiredtier === 0) {
           user.tier = "Free";
           user.expiredtier = 90;
+          user.apikey = generateApiKey({ method: "bytes", length: 8 });
           user.limitApikey = 200;
         }
         await user.save();
@@ -150,10 +152,10 @@ async function ResetRequestToday() {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.get("/tier", (req, res) => {
-//   tier();
-//   res.send("Tier adjustment complete");
-// });
+app.get("/tier", (req, res) => {
+  tier();
+  res.send("Tier adjustment complete");
+});
 app.get("/test", async (req, res) => {
   res.json({ userid: req.user });
 });
@@ -172,9 +174,17 @@ app.post("/updateprofile", upload.single("profileImage"), async (req, res) => {
       user.profileImage.contentType = req.file.mimetype;
     }
     if (changeusername !== user.username) {
+      const existingUsername = await User.findOne({ username: changeusername });
+      if (existingUsername) {
+        return res.status(400).json({ error: "Username sudah digunakan." });
+      }
       user.username = changeusername;
     }
     if (changeapikey !== user.apikey) {
+      const existingApikey = await User.findOne({ apikey: changeapikey });
+      if (existingApikey) {
+        return res.status(400).json({ error: "Apikey sudah digunakan." });
+      }
       user.apikey = changeapikey;
     }
     await user.save();

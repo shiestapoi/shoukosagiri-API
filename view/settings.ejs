@@ -15,65 +15,6 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/default.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- <style>
-        /* Tambahan CSS khusus untuk halaman settings */
-        .profile-box {
-          width: 200px;
-          height: 200px;
-          border: 2px solid #ccc;
-          border-radius: 50%;
-          overflow: hidden;
-          position: relative;
-          margin: 0 auto;
-          cursor: pointer;
-        }
-    
-        .profile-box img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-    
-        .profile-box:hover {
-          box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-        }
-    
-        .edit-icon {
-          display: none;
-          position: absolute;
-          bottom: 5px;
-          right: 5px;
-          background-color: #fff;
-          padding: 5px;
-          border-radius: 50%;
-          cursor: pointer;
-        }
-        .profile-photo label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Center the label */
-            background-color: rgba(0, 0, 0, 0.2); /* Make the label slightly dark */
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            opacity: 0; /* Hide the label by default */
-            transition: opacity 0.5s; /* Add a smooth transition effect */
-            }
-
-        .profile-box:hover .edit-icon {
-          display: block;
-        }
-    
-        /* Media query untuk responsif */
-        @media (max-width: 768px) {
-          .profile-box {
-            width: 150px;
-            height: 150px;
-          }
-        }
-      </style> -->
 </head>
 
 <body id="page-top" class="dark-mode">
@@ -516,22 +457,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/ruang-admin.min.js"></script>
     <script src="js/settings.js"></script>
-    <script src="js/menu.js"></script>
-    <script>
-        let jamElement = document.querySelector('#jam');
-
-setInterval(() => {
-    const currentTime = new Date();
-    const hours = currentTime.getHours().toString().padStart(2, '0');
-    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-    const seconds = currentTime.getSeconds().toString().padStart(2, '0');
-
-    const formattedTime = hours + ":" + minutes + ":" + seconds;
-    jamElement.innerHTML = formattedTime;
-}, 1000); // Update every 1 second (1000 milliseconds)
-    </script>
-    
-
+    <script src="js/menu.js"></script> 
 </body>
 
 </html>
