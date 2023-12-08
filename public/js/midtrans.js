@@ -1,1 +1,83 @@
-const _0x32de99=_0x33d9;(function(_0x58293e,_0x25ed43){const _0x45ec6f=_0x33d9,_0x58bd6e=_0x58293e();while(!![]){try{const _0x5e1e9=-parseInt(_0x45ec6f(0x81))/0x1*(-parseInt(_0x45ec6f(0x75))/0x2)+-parseInt(_0x45ec6f(0x71))/0x3*(-parseInt(_0x45ec6f(0x76))/0x4)+parseInt(_0x45ec6f(0x6b))/0x5+-parseInt(_0x45ec6f(0x88))/0x6+-parseInt(_0x45ec6f(0x78))/0x7+parseInt(_0x45ec6f(0x85))/0x8+-parseInt(_0x45ec6f(0x74))/0x9*(-parseInt(_0x45ec6f(0x80))/0xa);if(_0x5e1e9===_0x25ed43)break;else _0x58bd6e['push'](_0x58bd6e['shift']());}catch(_0x2f35e0){_0x58bd6e['push'](_0x58bd6e['shift']());}}}(_0x4180,0x752b3));function getCurrentDateTimeFormatted(){const _0x4a7f6c=_0x33d9,_0x4dab89=new Date(),_0x3a871b=_0x4dab89[_0x4a7f6c(0x89)]()[_0x4a7f6c(0x70)](),_0x300039=(_0x4dab89[_0x4a7f6c(0x6e)]()+0x1)[_0x4a7f6c(0x70)]()['padStart'](0x2,'0'),_0x5463eb=_0x4dab89[_0x4a7f6c(0x72)]()['toString']()[_0x4a7f6c(0x87)](0x2,'0'),_0xf18bfb=_0x4dab89[_0x4a7f6c(0x7f)]()['toString']()[_0x4a7f6c(0x87)](0x2,'0'),_0xb50c98=_0x4dab89[_0x4a7f6c(0x79)]()[_0x4a7f6c(0x70)]()[_0x4a7f6c(0x87)](0x2,'0'),_0x4fbdac=_0x4dab89['getSeconds']()[_0x4a7f6c(0x70)]()['padStart'](0x2,'0'),_0x564c60=''+_0x5463eb+_0x300039+_0x3a871b,_0x584c6c=''+_0xf18bfb+_0xb50c98+_0x4fbdac+_0x5463eb+_0x300039+_0x3a871b;return{'time':_0x584c6c,'days':_0x564c60};}const {time,days}=getCurrentDateTimeFormatted(),premiumButton=document[_0x32de99(0x7e)](_0x32de99(0x7a));function _0x33d9(_0x28e9e1,_0x1584a7){const _0x4180bc=_0x4180();return _0x33d9=function(_0x33d926,_0x4f2c78){_0x33d926=_0x33d926-0x69;let _0xde90f8=_0x4180bc[_0x33d926];return _0xde90f8;},_0x33d9(_0x28e9e1,_0x1584a7);}function _0x4180(){const _0x1e9523=['preventDefault','1201992Dgfwvk','POST','padStart','5405940Ilszmb','getFullYear','stringify','click','10365Edeqzt','status','application/json','getMonth','json','toString','1383279aPCttW','getDate','Payment\x20failed','18IMhZeT','289482clIifK','4syiAXw','snap','2905770cGbttu','getMinutes','price-premium','pay','/create-payment','API\x20standard\x201\x20Month\x20-\x20','getElementById','getHours','3018220oXSbks','4EoytvA','/handle-payment','API\x20Premium\x201\x20Month\x20-\x20'];_0x4180=function(){return _0x1e9523;};return _0x4180();}premiumButton['addEventListener']('click',async function(_0x15fd99){const _0x474b7f=_0x32de99;_0x15fd99[_0x474b7f(0x84)]();const _0x57b747={'id':'1-'+time,'productName':_0x474b7f(0x83)+username,'Price':0x4e20,'quantity':0x1,'email':email,'username':username},_0x193eeb=await fetch(_0x474b7f(0x7c),{'method':_0x474b7f(0x86),'headers':{'Content-Type':_0x474b7f(0x6d)},'body':JSON[_0x474b7f(0x69)](_0x57b747)}),_0x37dbfc=await fetch(_0x474b7f(0x82),{'method':_0x474b7f(0x86),'headers':{'Content-Type':_0x474b7f(0x6d)},'body':JSON['stringify'](_0x57b747)});if(_0x37dbfc[_0x474b7f(0x6c)]!==0xc8)return alert(_0x474b7f(0x73));const _0x57cfe1=await _0x193eeb['json'](),{token:_0x43ad34}=_0x57cfe1;window[_0x474b7f(0x77)][_0x474b7f(0x7b)](_0x43ad34);});const standardButton=document[_0x32de99(0x7e)]('price-standard');standardButton['addEventListener'](_0x32de99(0x6a),async function(_0x20cec6){const _0x378d53=_0x32de99;_0x20cec6[_0x378d53(0x84)]();const _0x5a72c9={'id':'2-'+time,'productName':_0x378d53(0x7d)+username,'Price':0x2710,'quantity':0x1,'email':email,'username':username},_0x37b622=await fetch('/create-payment',{'method':_0x378d53(0x86),'headers':{'Content-Type':'application/json'},'body':JSON['stringify'](_0x5a72c9)}),_0x47d60e=await fetch('/handle-payment',{'method':_0x378d53(0x86),'headers':{'Content-Type':_0x378d53(0x6d)},'body':JSON[_0x378d53(0x69)](_0x5a72c9)});if(_0x47d60e[_0x378d53(0x6c)]!==0xc8)return alert(_0x378d53(0x73));const _0x4c9f69=await _0x37b622[_0x378d53(0x6f)](),{token:_0x1f914b}=_0x4c9f69;window[_0x378d53(0x77)]['pay'](_0x1f914b);});
+function getCurrentDateTimeFormatted() {
+  const currentDate = new Date();
+
+  const year = currentDate.getFullYear().toString();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const hours = currentDate.getHours().toString().padStart(2, "0");
+  const minutes = currentDate.getMinutes().toString().padStart(2, "0");
+  const seconds = currentDate.getSeconds().toString().padStart(2, "0");
+
+  const formattedDateDays = `${day}${month}${year}`;
+  const formattedDateTime = `${hours}${minutes}${seconds}${day}${month}${year}`;
+  return { time: formattedDateTime, days: formattedDateDays };
+}
+
+const { time, days } = getCurrentDateTimeFormatted();
+
+const premiumButton = document.getElementById("price-premium");
+
+premiumButton.addEventListener("click", async function (event) {
+  event.preventDefault();
+  const data = {
+    id: "1-" + time,
+    productName: "API Premium 1 Month - " + username,
+    Price: 20000,
+    quantity: 1,
+    email: email,
+    username: username,
+  };
+  const response = await fetch("/create-payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const handle = await fetch("/handle-payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (handle.status !== 200) {
+    return alert("Payment failed");
+  }
+  const result = await response.json();
+  const { token } = result;
+  window.snap.pay(token);
+});
+const standardButton = document.getElementById("price-standard");
+
+standardButton.addEventListener("click", async function (event) {
+  event.preventDefault();
+  const data = {
+    id: "2-" + time,
+    productName: "API standard 1 Month - " + username,
+    Price: 10000,
+    quantity: 1,
+    email: email,
+    username: username,
+  };
+  const response = await fetch("/create-payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const handle = await fetch("/handle-payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (handle.status !== 200) {
+    return alert("Payment failed");
+  }
+  const result = await response.json();
+  const { token } = result;
+  window.snap.pay(token);
+});
