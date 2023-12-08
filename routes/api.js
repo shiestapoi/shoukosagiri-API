@@ -169,7 +169,7 @@ router.get(
 );
 
 router.get("/api/dowloader/igdowloader", cekKey, async (req, res, next) => {
-  var url = req.query.url;
+  const url = req.query.url;
   if (!url)
     return res.json({
       status: false,
